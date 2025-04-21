@@ -8,7 +8,235 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        lib
+
+        :root{
+            --main-color:#0A5488;
+            --second-color: rgba(215, 225, 233, 0.95);
+            --third-color: rgba(45, 167, 255, 0.3);
+            --fourth-color:#D2E3EF;
+            --big-circle-color : rgba(10, 84, 136, 0.47);
+            --small-circle-color: rgba(253, 254, 255, 0.47);
+            --red-color-text:#FF2200;
+            --white-color-text:#FFFFFF;
+            --blue-color-text:#1105FF;
+            --black-color-text:#000000;
+            --logout-button-color: rgba(255, 0, 0, 0.71);
+            --blue-button:#0533FF;
+            --update-button:#15CA42;
+            --delete-button:#E22323;
+            --purchase-button:#15CA42;
+            --invoice-button:#D6E71A;
+        }
+
+        body{
+            box-sizing: border-box ;
+        }
+
+        .card-group{
+            height: 720px;
+        }
+
+        .card-1{
+            background-color: var(--second-color);
+            width: 735px;
+        }
+
+        .card-2{
+            background-color: var(--main-color);
+            width: 800px;
+        }
+
+        #title-1{
+            top: 260px;
+            left: 250px;
+            font-size: 65px;
+            position: absolute;
+        }
+
+        #title-2{
+            top: 350px;
+            left: 200px;
+            font-size: 65px;
+            position: absolute;
+        }
+
+        .card-body{
+            position: relative;
+        }
+
+        .circle{
+            background-color: var(--big-circle-color);
+            width: 300px;
+            aspect-ratio: 1/1;
+            margin: auto;
+            border-radius: 100%;
+            top: -100px;
+            left: -100px;
+            position: absolute;
+        }
+
+        .circle-2{
+            background-color: var(--small-circle-color);
+            width: 150px;
+            aspect-ratio: 1/1;
+            margin: auto;
+            border-radius: 100%;
+            bottom: -720px;
+            right: 10px;
+            position: absolute;
+        }
+
+        .card-title{
+            top: 80px;
+            left: 320px;
+            font-size: 50px;
+            font-family: "Bell MT",sans-serif;
+            font-weight: bold;
+            position: absolute;
+            color: var(--black-color-text);
+        }
+
+        .card-body-2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .card-login {
+            background-color: var(--second-color);
+            width: 420px;
+            height: auto;
+            box-shadow: 0 8px 16px rgba(0,0,10,10);
+        }
+
+        .card-title-login{
+            top: -60px;
+            font-family: "Bell MT",sans-serif;
+            font-weight: bold;
+            font-size: 50px;
+            position: relative;
+            color: var(--white-color-text);
+        }
+
+        #forgot-password {
+            color: var(--red-color-text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        #forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        #signup {
+            color: var(--blue-color-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        #signup:hover {
+            text-decoration: underline;
+        }
+
+        .d-grid{
+            bottom: 30px;
+            position: relative;
+            color: var(--main-color);
+            box-shadow: 0 8px 16px rgba(0,0,0,0);
+        }
+
+        @keyframes floatCircle {
+            0% {
+                transform: translateY(0);
+            } 50% {
+                transform: translateY(-15px); }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseCircle {
+            0% {transform: scale(1);opacity: 0.8;}
+            50% {transform: scale(1.1);opacity: 1;}
+            100% { transform: scale(1); opacity: 0.8;}
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .circle {
+            animation: floatCircle 4s ease-in-out infinite;
+        }
+
+        .circle-2 {
+            animation: pulseCircle 3s ease-in-out infinite;
+        }
+
+        .card-login {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @media (max-width: 991px) {
+            .card-group {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .card-1, .card-2 {
+                width: 100%;
+                height: auto;
+            }
+
+            #title-1, #title-2 {
+                position: static;
+                text-align: center;
+                font-size: 50px;
+                margin-top: 30px;
+            }
+
+            .card-title {
+                position: static;
+                text-align: center;
+                font-size: 36px;
+            }
+
+            .card-login {
+                width: 90%;
+                margin-bottom: 30px;
+            }
+
+            .circle, .circle-2 {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card-title-login {
+                font-size: 36px;
+                top: 250px;
+            }
+
+            .card-login {
+                padding: 1rem;
+            }
+
+            .btn {
+                font-size: 16px;
+            }
+        }
 
 
     </style>
@@ -16,6 +244,62 @@
 </head>
 <body>
 
+            <!-- -----------------Login page------------------- -->
+
+
+        <div class="card-group">
+            <div class="card-1">
+                <div class="card-body">
+                    <div class="circle"></div>
+                    <div class="circle-2"></div>
+                    <h1 class="card-title" id="title-1">POS</h1>
+                    <h1 class="card-title" id="title-2">SYSTEM</h1>
+                </div>
+            </div>
+            <div class="card-2">
+                <div class="card-body-2">
+                    <h1 class="card-title-login">Log In</h1>
+                    <div class="card-login"></div>
+
+                    <div class="card-login p-4">
+                        <form>
+                        <!--username-->
+
+                            <div class="mb-4">
+                                <label for="inputUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="inputUsername" placeholder="Enter username">
+                            </div>
+
+                            <!--password-->
+
+                            <div class="mb-4">
+                                <label for="inputPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Enter password">
+
+                                <!-- Forgot Password -->
+                                <div class="text-end mt-1">
+                                    <a href="#" id="forgot-password">Forgot Password?</a>
+                                </div>
+
+                                <!-- SignUp -->
+                                <div class="d-flex align-items-center my-3">
+                                    <hr class="flex-grow-1">
+                                    <span class="mx-2 text-muted small">Don't have an account?</span>
+                                    <a href="#" id="signup">Sign Up</a>
+                                    <hr class="flex-grow-1">
+                                </div>
+                            </div>
+
+                            <br><br>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
 </body>
