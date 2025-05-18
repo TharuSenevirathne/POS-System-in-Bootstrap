@@ -618,22 +618,18 @@
     ordersec.style.display = "none";
     orderdetailsec.style.display = "none";
 
-    // Add animation classes when switching sections
     function showSection(section) {
-        // Remove animation classes from all sections first
         [homesec, itemsec, customersec, ordersec, orderdetailsec].forEach(sec => {
             sec.style.display = "none";
             sec.classList.remove("fade-in", "slide-in-left", "slide-in-right");
         });
 
-        // Add animation class and display the selected section
         section.classList.add("fade-in");
         section.style.display = "block";
     }
 
     $(home).on('click', function(event) {
         showSection(homesec);
-        // Add bounce animation to cards
         document.querySelectorAll('#cardset .card').forEach((card, index) => {
             card.style.animationDelay = `${index * 0.2}s`;
             card.classList.add('bounce-in');
@@ -659,7 +655,6 @@
         showSection(ordersec);
         ordersec.classList.remove("fade-in");
         ordersec.classList.add("slide-in-right");
-        // Add pulse animation to the add to cart button
         document.getElementById('addcart').classList.add('pulse');
     });
 
@@ -669,7 +664,6 @@
         orderdetailsec.classList.add("slide-in-left");
     });
 
-    // Add hover effects to nav items
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
@@ -682,7 +676,6 @@
         });
     });
 
-    // Add animation when form elements receive focus
     const inputs = document.querySelectorAll('input, select');
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -695,7 +688,6 @@
         });
     });
 
-    // Add subtle animation to buttons on hover
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
