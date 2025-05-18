@@ -2,559 +2,711 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>POS System Login, SignUp & Confirm</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>T MART - Shopping Experience</title>
     <style>
-        :root {
-            --main-color: #0A5488;
-            --second-color: rgba(215, 225, 233, 0.95);
-            --third-color: rgba(45, 167, 255, 0.3);
-            --fourth-color: #D2E3EF;
-            --big-circle-color: rgba(10, 84, 136, 0.47);
-            --small-circle-color: rgba(253, 254, 255, 0.47);
-            --red-color-text: #FF2200;
-            --white-color-text: #FFFFFF;
-            --blue-color-text: #1105FF;
-            --black-color-text: #000000;
-        }
-
+        /* Base Styles */
         body {
-            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.97);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.5s;
         }
 
-        .card-group {
+        /* Logo and Header Styles */
+        #logo {
+            margin-right: 20px;
+            margin-top: -10px;
+            transition: transform 0.3s;
+        }
+
+        #logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        #h1 {
+            color: #043054;
+            font-size: 30px;
+            font-weight: bolder;
+            transition: color 0.3s;
+        }
+
+        #h1:hover {
+            color: #000fff;
+            text-shadow: 0 0 5px rgba(2, 117, 216, 0.3);
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: flex !important;
+            flex-basis: auto;
+            justify-content: end;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #0275d8 !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: #0275d8;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Button Styles */
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #logout {
+            margin-left: 20px;
+        }
+
+        #logout:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Card Section Styles */
+        #cardset {
+            padding: 40px;
+            height: 600px;
             display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
             flex-wrap: wrap;
-            height: 100vh;
         }
 
-        .card-1, .card-2 {
-            flex: 1;
-            position: relative;
-        }
-
-        .card-1 {
-            background-color: var(--second-color);
-        }
-
-        .card-2 {
-            background-color: var(--main-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .card-body {
-            position: relative;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .circle, .circle-2 {
-            position: absolute;
-            border-radius: 50%;
-        }
-
-        .circle {
-            background-color: var(--big-circle-color);
-            width: 300px;
-            aspect-ratio: 1/1;
-            top: -100px;
-            left: -100px;
-            animation: floatCircle 4s ease-in-out infinite;
-        }
-
-        .circle-2 {
-            background-color: var(--small-circle-color);
-            width: 150px;
-            aspect-ratio: 1/1;
-            bottom: -100px;
-            right: 10px;
-            animation: pulseCircle 3s ease-in-out infinite;
-        }
-
-        .card-title {
-            position: absolute;
-            font-size: 65px;
-            font-weight: bold;
-            font-family: "Bell MT", sans-serif;
-            color: var(--black-color-text);
-        }
-
-        #title-1, #signup-title-1, #confirm-title-1 {
-            top: 260px;
-            left: 250px;
-        }
-
-        #title-2, #signup-title-2, #confirm-title-2 {
-            top: 350px;
-            left: 200px;
-        }
-
-        .card-title-login {
-            font-family: "Bell MT", sans-serif;
-            font-weight: bold;
-            font-size: 50px;
-            color: var(--white-color-text);
-            margin-bottom: 30px;
-        }
-
-        .card-login {
-            background-color: var(--second-color);
-            width: 420px;
-            padding: 2rem;
-            box-shadow: 0 8px 16px rgba(0, 0, 10, 0.2);
-            border-radius: 10px;
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .form-label {
-            font-weight: 500;
-        }
-
-        .link-small {
-            font-size: 14px;
-            color: var(--blue-color-text);
-            text-decoration: none;
-        }
-
-        .link-small:hover {
-            text-decoration: underline;
-        }
-
-        .d-grid {
-            margin-top: 20px;
-        }
-
-        .container-fluid {
-            padding: 0;
-        }
-
-        .dashboard {
-            display: flex;
-            height: 100vh;
-        }
-
-        .sidebar {
-            width: 260px;
-            background-color: var(--main-color);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .logo {
-            padding: 20px;
-            text-align: center;
-            font-family: "Bell MT", sans-serif;
-            font-size: 40px;
-            font-weight: bold;
-            line-height: 1.2;
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            margin: 5px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: white;
-            transition: background-color 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-
-        }
-
-
-        .nav-item:hover {
-            background-color: #00A3FF;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-            margin-right: 15px;
-            width: 25px;
-            text-align: center;
-        }
-
-        .logout-btn {
-            margin-top: auto;
-            margin-bottom: 20px;
-            padding: 12px 20px;
-            margin-left: 10px;
-            margin-right: 10px;
-            background-color: #ca2d2d;
-            color: white;
+        .card {
+            transition: all 0.4s ease;
+            border-radius: 15px;
+            overflow: hidden;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            transition: transform 0.5s;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        /* Login Section Styles */
+        #loginhero {
+            margin-left: 50px;
+            padding: 40px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logout-btn i {
-            margin-right: 10px;
-        }
-
-        .main-content {
-            flex: 1;
-            background-color: var(--second-color);
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .welcome-header {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--black-color-text);
-            margin-top: -80px;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-evenly;
         }
 
-        .stat-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            flex: 0 0 calc(33.33% - 20px);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .stat-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .stat-value {
-            font-size: 80px;
+        #loginhero div:nth-child(1) h1 {
             font-weight: bold;
+            font-style: italic;
+            font-size: 50px;
+            width: 350px;
+            color: black;
         }
 
-        .customers {
+        #loginhero div:nth-child(1) h2 {
+            margin-top: 50px;
+            font-size: 20px;
+            width: 300px;
+            color: #424141;
+        }
+
+        #loginhero div:nth-child(1) ul li {
+            list-style-type: circle;
+            font-weight: bold;
             color: blue;
         }
 
-        .items {
+        #logincard {
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            margin-top: 50px;
+            padding: 40px;
+            justify-self: center;
+            max-width: 400px;
+            min-width: 300px;
+            max-height: 500px;
+            min-height: 400px;
+            background: #ffffff;
+            border-radius: 20px;
+        }
+
+        #logincard h1 {
             color: green;
+            font-size: 50px;
+            font-style: italic;
+            font-family: "Droid Sans Mono";
         }
 
-        .orders {
-            color: red;
+        #logincard p {
+            margin-top: 30px;
+            color: black;
         }
 
-        @keyframes floatCircle {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0); }
+        #btn {
+            margin-top: 20px;
         }
 
-        @keyframes pulseCircle {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+        /* Section Styles */
+        #setofdesc {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
         }
 
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(60px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .padding {
+            padding: 20px;
+            margin: 30px;
         }
 
-        @media (max-width: 991px) {
-            .card-group {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .card-title {
-                position: static;
-                text-align: center;
-                font-size: 50px;
-                margin-top: 30px;
-            }
-
-            .card-login {
-                width: 90%;
-                margin-bottom: 30px;
-            }
-
-            .circle, .circle-2 {
-                display: none;
-            }
-
-            .dashboard {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-            }
-
-            .nav-menu {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-item {
-                margin: 5px;
-            }
-
-            .stat-card {
-                flex: 0 0 calc(50% - 20px);
-            }
-
-            .logout-btn {
-                margin-top: 10px;
-            }
+        #ordersec {
+            padding: 50px;
+            padding-top: 10px;
         }
 
-        @media (max-width: 576px) {
-            .card-title-login {
-                font-size: 36px;
-            }
+        /* Form Styles */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            transition: all 0.3s;
+        }
 
-            .card-login {
-                padding: 1rem;
-            }
+        .form-control:focus, .form-select:focus {
+            border-color: #0275d8;
+            box-shadow: 0 0 0 0.25rem rgba(2, 117, 216, 0.25);
+            transform: translateY(-2px);
+        }
 
-            .btn {
-                font-size: 16px;
-            }
+        /* Table Styles */
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
 
-            .stat-card {
-                flex: 0 0 100%;
-            }
+        .table-striped tbody tr:hover {
+            background-color: rgba(2, 117, 216, 0.05);
+            transform: scale(1.01);
+            transition: all 0.2s;
+        }
+
+        .card-header {
+            border-radius: 8px 8px 0 0 !important;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        /* Generic Element Styles */
+        h1, h2, h3, h4 {
+            transition: all 0.3s;
+        }
+
+        h1:hover, h2:hover, h3:hover, h4:hover {
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s;
+        }
+
+        .bounce-in {
+            animation: bounceIn 1s;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        span {
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-
-
-<!-- ------------ LOGIN PAGE -------------- -->
-
-
-<div class="card-group">
-    <div class="card-1">
-        <div class="card-body">
-            <div class="circle"></div>
-            <div class="circle-2"></div>
-            <h1 class="card-title" id="title-1">POS</h1>
-            <h1 class="card-title" id="title-2">SYSTEM</h1>
-        </div>
-    </div>
-
-    <div class="card-2">
-        <h1 class="card-title-login">Log In</h1>
-        <div class="card-login">
-            <form>
-                <div class="mb-4">
-                    <label for="inputUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Enter username">
-                </div>
-
-                <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Enter password">
-                </div>
-
-                <div class="text-end mt-1">
-                    <a href="#" class="link-small text-danger">Forgot Password?</a>
-                </div>
-
-                <div class="d-flex align-items-center my-3">
-                    <hr class="flex-grow-1">
-                    <span class="mx-2 text-muted small">Don't have an account?</span>
-                    <a href="#" class="link-small">Sign Up</a>
-                    <hr class="flex-grow-1">
-                </div>
-
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- ------------ SIGN UP PAGE -------------- -->
-
-
-<div class="card-group">
-    <div class="card-1">
-        <div class="card-body">
-            <div class="circle"></div>
-            <div class="circle-2"></div>
-            <h1 class="card-title" id="signup-title-1">POS</h1>
-            <h1 class="card-title" id="signup-title-2">SYSTEM</h1>
-        </div>
-    </div>
-
-    <div class="card-2">
-        <h1 class="card-title-login">Sign Up</h1>
-        <div class="card-login">
-            <form>
-                <div class="mb-3">
-                    <label for="signupUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="signupUsername" placeholder="Enter username">
-                </div>
-
-                <div class="mb-3">
-                    <label for="signupPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="signupPassword" placeholder="Enter password">
-                </div>
-
-                <div class="mb-4">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
-                </div>
-
-                <div class="d-flex align-items-center my-3">
-                    <hr class="flex-grow-1">
-                    <span class="mx-2 text-muted small">Already have an account?</span>
-                    <a href="#" class="link-small">Log In</a>
-                    <hr class="flex-grow-1">
-                </div>
-
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- ------------ CONFIRM PASSWORD PAGE -------------- -->
-
-
-<div class="card-group">
-    <div class="card-1">
-        <div class="card-body">
-            <div class="circle"></div>
-            <div class="circle-2"></div>
-            <h1 class="card-title" id="confirm-title-1">POS</h1>
-            <h1 class="card-title" id="confirm-title-2">SYSTEM</h1>
-        </div>
-    </div>
-
-    <div class="card-2">
-        <h1 class="card-title-login">Confirm Password</h1>
-        <div class="card-login">
-            <form>
-                <div class="mb-3">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
-                </div>
-
-                <div class="mb-4">
-                    <label for="retypePassword" class="form-label">Re-Enter Password</label>
-                    <input type="password" class="form-control" id="retypePassword" placeholder="Re-type password">
-                </div>
-
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Confirm</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<!-- ------------ DASHBOARD PAGE -------------- -->
-
-<div class="container-fluid">
-    <div class="dashboard">
-        <!-- Sidebar Navigation -->
-        <div class="sidebar">
-            <div class="logo">
-                POS<br>System
-            </div>
-            <div class="nav-menu">
-                <a href="#" class="nav-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-user"></i>
-                    <span>Customer</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Items</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>Place Order</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-file-invoice"></i>
-                    <span>Invoice</span>
-                </a>
-            </div>
-            <button class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>LogOut</span>
+<header class="fade-in">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a id="h1" class="navbar-brand bounce-in" href="#">
+                <img src="assets/images/Supermarket.png" id="logo" width="50" alt="img">T MART
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <span class="nav-link" id="home">Home</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" id="item">Item</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" id="customerdash">Customer</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" id="order">Order</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" id="orderdetail-nav">Order Details</span>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <a href=""><button class="btn btn-outline-danger" type="submit" id="logout">Logout</button></a>
+                </form>
+            </div>
         </div>
+    </nav>
+</header>
 
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <h1 class="welcome-header">Welcome to Home !</h1>
-
-            <div class="stats-container">
-                <!-- Customers Card -->
-                <div class="stat-card">
-                    <h2 class="stat-title">Customers :</h2>
-                    <div class="stat-value customers">0</div>
+<!--dashboard-->
+<section id="dashsec" class="fade-in">
+    <main id="hero">
+        <div id="cardset">
+            <div class="card bounce-in" style="width: 18rem;">
+                <img src="assets/images/food-donation.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">High-quality products at affordable prices, making your shopping experience better every day.</p>
                 </div>
-
-                <!-- Items Card -->
-                <div class="stat-card">
-                    <h2 class="stat-title">Items :</h2>
-                    <div class="stat-value items">0</div>
+            </div>
+            <div class="card bounce-in" style="width: 18rem; animation-delay: 0.2s">
+                <img src="assets/images/food-donation.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Fresh and organic produce sourced directly from local farmers to ensure quality and freshness.</p>
                 </div>
+            </div>
+            <div class="card bounce-in" style="width: 18rem; animation-delay: 0.4s">
+                <img src="assets/images/food-donation.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Convenient shopping experience with fast delivery options and excellent customer service.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
 
-                <!-- Orders Card -->
-                <div class="stat-card">
-                    <h2 class="stat-title">Orders :</h2>
-                    <div class="stat-value orders">0</div>
+<!--
+customer form
+-->
+<section id="customersec" class="slide-in-right">
+    <div class="container">
+        <h1 class="text-center mt-4 bounce-in">Customer Management</h1><br>
+
+        <!-- Customer Form -->
+        <div class="form-section fade-in">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Add / Update Customer
+                </div>
+                <div class="card-body">
+                    <form id="customerForm">
+                        <input type="hidden" id="customerId">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="id" class="form-control" placeholder="Customer id" required><br>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="name" class="form-control" placeholder="Customer name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="address" class="form-control" placeholder="Customer address" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="salary" class="form-control" placeholder="telephone" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3" id="customersave">Save</button>
+                        <button type="submit" class="btn btn-secondary mt-3" id="customerupdate">Update</button>
+                        <button type="submit" class="btn btn-danger mt-3" id="customerdelete">Delete</button>
+                        <button type="submit" class="btn btn-primary mt-3" id="customersearch">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="table-section fade-in" id="table">
+            <h1 id="customer">All Customers</h1><br>
+
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    Customer List
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                        </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--
+item form
+-->
+<section id="itemsec" class="slide-in-left">
+    <div class="container">
+        <h1 class="text-center mt-4 bounce-in">Item Management</h1>
+        <br>
+
+        <!-- Item Form -->
+        <div class="form-section fade-in">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Add / Update Item
+                </div>
+                <div class="card-body">
+                    <form id="itemform">
+                        <input type="hidden">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="iid" class="form-control" placeholder="Item id" required><br>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="iname" class="form-control" placeholder="Description" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="iqty" class="form-control" placeholder="Qty on hand" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="iprice" class="form-control" placeholder="Unit price" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3" id="itemsave">Save</button>
+                        <button type="submit" class="btn btn-secondary mt-3" id="itemupdate">Update</button>
+                        <button type="submit" class="btn btn-danger mt-3" id="itemdelete">Delete</button>
+                        <button type="submit" class="btn btn-primary mt-3" id="itemsearch">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="table-section fade-in" id="itemtable">
+            <h1 id="customer1">All Items</h1>
+            <br>
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    Item List
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Qty On Hand</th>
+                            <th>Unit Price</th>
+                        </tr>
+                        </thead>
+                        <tbody id="itemTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--placeorder-->
+<section id="ordersec" class="slide-in-right">
+    <!-- Order Form -->
+    <h3 class="mt-5 bounce-in">Order</h3>
+
+    <div class="card my-4 fade-in">
+        <div class="card-body">
+            <form id="orderForm">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="customerSelect" class="form-label">Select Customer</label>
+                        <select class="form-select" id="customerSelect" required>
+                            <option selected disabled value="">Choose a customer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="customerName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName" placeholder="Customer Name" disabled>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="itemSelect" class="form-label">Select Item</label>
+                        <select class="form-select" id="itemSelect" required>
+                            <option selected disabled value="">Choose an item</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="qtyOnHand" class="form-label">Qty On Hand</label>
+                        <input type="number" class="form-control" id="qtyOnHand" placeholder="Available" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="unitPrice" class="form-label">Unit Price ($)</label>
+                        <input type="number" class="form-control" id="unitPrice" placeholder="Unit Price" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary w-100 pulse" id="addcart">Add Item to Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Table -->
+    <h3 class="mt-5 bounce-in">Order Details</h3>
+    <table class="table table-bordered table-striped mt-3 fade-in">
+        <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        <!-- Order items will be added here -->
+        </tbody>
+    </table>
+
+    <!-- Order Total & Place Order Button -->
+    <div class="d-flex justify-content-between align-items-center fade-in">
+        <h4 id="orderTotal">Order Total: Rs.0.00</h4>
+        <button class="btn btn-success bounce-in" id="placeOrder">Place Order</button>
+    </div>
+</section>
+
+<section id="orderdetail-section" class="padding slide-in-left">
+    <h2 class="text-center mb-4 bounce-in">Order Details</h2>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-bordered fade-in">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Item ID</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="order-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="assets/lib/jquery-3.7.1.min.js"></script>
+<script>
+    let home = document.getElementById("home");
+    let item = document.getElementById("item");
+    let customer = document.getElementById("customerdash");
+    let placeorder = document.getElementById("order");
+    let orderdetailNav = document.getElementById("orderdetail-nav");
+
+    let homesec = document.getElementById("dashsec");
+    let itemsec = document.getElementById("itemsec");
+    let customersec = document.getElementById("customersec");
+    let ordersec = document.getElementById("ordersec");
+    let orderdetailsec = document.getElementById("orderdetail-section");
+
+    itemsec.style.display = "none";
+    customersec.style.display = "none";
+    ordersec.style.display = "none";
+    orderdetailsec.style.display = "none";
+
+    // Add animation classes when switching sections
+    function showSection(section) {
+        // Remove animation classes from all sections first
+        [homesec, itemsec, customersec, ordersec, orderdetailsec].forEach(sec => {
+            sec.style.display = "none";
+            sec.classList.remove("fade-in", "slide-in-left", "slide-in-right");
+        });
+
+        // Add animation class and display the selected section
+        section.classList.add("fade-in");
+        section.style.display = "block";
+    }
+
+    $(home).on('click', function(event) {
+        showSection(homesec);
+        // Add bounce animation to cards
+        document.querySelectorAll('#cardset .card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.classList.add('bounce-in');
+            setTimeout(() => {
+                card.classList.remove('bounce-in');
+            }, 1000 + (index * 200));
+        });
+    });
+
+    $(item).on('click', function(event) {
+        showSection(itemsec);
+        itemsec.classList.remove("fade-in");
+        itemsec.classList.add("slide-in-left");
+    });
+
+    $(customer).on('click', function(event) {
+        showSection(customersec);
+        customersec.classList.remove("fade-in");
+        customersec.classList.add("slide-in-right");
+    });
+
+    $(placeorder).on('click', function(event) {
+        showSection(ordersec);
+        ordersec.classList.remove("fade-in");
+        ordersec.classList.add("slide-in-right");
+        // Add pulse animation to the add to cart button
+        document.getElementById('addcart').classList.add('pulse');
+    });
+
+    $(orderdetailNav).on('click', function(event) {
+        showSection(orderdetailsec);
+        orderdetailsec.classList.remove("fade-in");
+        orderdetailsec.classList.add("slide-in-left");
+    });
+
+    // Add hover effects to nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.querySelector('.nav-link').classList.add('active');
+        });
+        item.addEventListener('mouseleave', function() {
+            if (!this.querySelector('.nav-link').getAttribute('aria-current')) {
+                this.querySelector('.nav-link').classList.remove('active');
+            }
+        });
+    });
+
+    // Add animation when form elements receive focus
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        });
+        input.addEventListener('blur', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
+        });
+    });
+
+    // Add subtle animation to buttons on hover
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        });
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script type="module" src="contraller/customer.js"></script>
+<script type="module" src="contraller/item.js"></script>
+<script type="module" src="contraller/order.js"></script>
+<script type="module" src="contraller/orderDetails.js"></script>
+
 </body>
 </html>
