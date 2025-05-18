@@ -1,8 +1,9 @@
 import ItemModel from '../models/ItemModel.js';
-import {customerary,itemary} from "../db/db.js";
+import { customerary, itemary } from "../db/db.js";
 
 let itemindex;
 
+// Load table
 const loadItemTable = () => {
     $("#itemTableBody").empty();
 
@@ -12,12 +13,12 @@ const loadItemTable = () => {
             <td>${item.des}</td>
             <td>${item.qty}</td>
             <td>${item.price}</td>
-        </tr>`
-
+        </tr>`;
         $("#itemTableBody").append(data);
     });
 };
 
+// Clear inputs
 function clear() {
     $("#iid").val('');
     $("#iname").val('');
@@ -25,8 +26,14 @@ function clear() {
     $("#iprice").val('');
 }
 
+// Validate Item ID
+const validIId = (iid) => {
+    const iidregex = /^I\d+$/;
+    return iidregex.test(iid);
+};
+
 // Save Item
-$("#itemsave").on('click', function(event) {
+$("#itemsave").on('click', function (event) {
     event.preventDefault();
 
     let id = $("#iid").val();
@@ -35,70 +42,28 @@ $("#itemsave").on('click', function(event) {
     let price = $("#iprice").val();
 
     if (!validIId(id)) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "invalid Item ID",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(des.length === 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Description cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(qty.length === 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Quantity cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(price.length === 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Price cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
+        Swal.fire("Invalid Item ID", "", "warning");
+    } else if (des.length === 0) {
+        Swal.fire("Item Description cannot be empty", "", "warning");
+    } else if (qty.length === 0) {
+        Swal.fire("Item Quantity cannot be empty", "", "warning");
+    } else if (price.length === 0) {
+        Swal.fire("Unit Price cannot be empty", "", "warning");
     } else {
-        let itemModel = new ItemModel(id, des , qty,price);
+        let itemModel = new ItemModel(id, des, qty, price);
         itemary.push(itemModel);
-
         loadItemTable();
         clear();
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Item saved successfully",
-            showConfirmButton: false,
-            timer: 1500
-        });
+        Swal.fire("Item saved successfully", "", "success");
     }
-
-
-});
-
-const validIId = (iid) => {
-    const iidregex = /^I\d+$/;
-    return iidregex.test(iid);
-}
-
-$("#item").on("click", function (event) {
-    event.preventDefault();
-    loadItemTable();
 });
 
 // Search Item
-$("#itemsearch").on('click', function(event) {
+$("#itemsearch").on('click', function (event) {
     event.preventDefault();
 
     let id = $("#iid").val();
+    let found = false;
 
     for (let i = 0; i < itemary.length; i++) {
         if (itemary[i].id === id) {
@@ -106,44 +71,39 @@ $("#itemsearch").on('click', function(event) {
             $("#iname").val(itemary[i].des);
             $("#iqty").val(itemary[i].qty);
             $("#iprice").val(itemary[i].price);
-        } else{
-            alert("Item not found.");
+            found = true;
+            break;
         }
     }
 
+    if (!found) {
+        Swal.fire("Item not found!", "", "error");
+    }
 });
 
 // Delete Item
-$("#itemdelete").on('click', function(event) {
+$("#itemdelete").on('click', function (event) {
     event.preventDefault();
-
 
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel"
     }).then((result) => {
         if (result.isConfirmed) {
-            itemary.splice(itemary[itemindex] , 1);
+            itemary.splice(itemindex, 1);
             loadItemTable();
             clear();
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
+            Swal.fire("Deleted!", "Item has been deleted.", "success");
         }
     });
-
-
 });
 
 // Update Item
-$("#itemupdate").on('click', function(event) {
+$("#itemupdate").on('click', function (event) {
     event.preventDefault();
 
     let id = $("#iid").val();
@@ -152,37 +112,13 @@ $("#itemupdate").on('click', function(event) {
     let price = $("#iprice").val();
 
     if (!validIId(id)) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "invalid Item ID",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(des.length === 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Description cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(qty > 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Quantity cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else if(price > 0) {
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Item Price cannot be empty",
-            showConfirmButton: false,
-            timer: 1500
-        });
+        Swal.fire("Invalid Item ID", "", "warning");
+    } else if (des.length === 0) {
+        Swal.fire("Item Description cannot be empty", "", "warning");
+    } else if (qty.length === 0) {
+        Swal.fire("Item Quantity cannot be empty", "", "warning");
+    } else if (price.length === 0) {
+        Swal.fire("Unit Price cannot be empty", "", "warning");
     } else {
         Swal.fire({
             title: "Do you want to save the changes?",
@@ -191,9 +127,8 @@ $("#itemupdate").on('click', function(event) {
             confirmButtonText: "Save",
             denyButtonText: `Don't save`
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                itemary[itemindex].id = id
+                itemary[itemindex].id = id;
                 itemary[itemindex].des = des;
                 itemary[itemindex].qty = qty;
                 itemary[itemindex].price = price;
@@ -206,10 +141,9 @@ $("#itemupdate").on('click', function(event) {
             }
         });
     }
-
 });
 
-$('#itemTableBody').on("click" ,'tr', function (event) {
+$('#itemTableBody').on("click", 'tr', function (event) {
     event.preventDefault();
     itemindex = $(this).index();
 
@@ -217,4 +151,9 @@ $('#itemTableBody').on("click" ,'tr', function (event) {
     $("#iname").val(itemary[itemindex].des);
     $("#iqty").val(itemary[itemindex].qty);
     $("#iprice").val(itemary[itemindex].price);
+});
+
+$("#item").on("click", function (event) {
+    event.preventDefault();
+    loadItemTable();
 });

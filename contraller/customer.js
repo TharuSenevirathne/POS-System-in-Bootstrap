@@ -59,7 +59,7 @@ $("#customersave").on("click", function (event) {
         Swal.fire({
             position: "center",
             icon: "warning",
-            title: "invalid telephone",
+            title: "invalid Phone No",
             showConfirmButton: false,
             timer: 1500
         });
@@ -130,20 +130,19 @@ $("#customerupdate").on("click", function (event) {
         Swal.fire({
             position: "center",
             icon: "warning",
-            title: "invalid telephone",
+            title: "invalid Phone No",
             showConfirmButton: false,
             timer: 1500
         });
     }else{
 
         Swal.fire({
-            title: "Do you want to save the changes?",
+            title: "Do you want to save the changes ?",
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: "Save",
             denyButtonText: `Don't save`
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 customerary[csindex].cid = cid
                 customerary[csindex].cname = cname;
@@ -164,9 +163,6 @@ $("#customerupdate").on("click", function (event) {
 $("#customersearch").on("click", function (event) {
     event.preventDefault();
     let cid = $("#id").val();
-
-  /*  let newid = $(this).find(".id").text();
-    console.log(newid);*/
 
     for (let i = 0; i < customerary.length; i++) {
         if (customerary[i].cid === cid){
@@ -211,9 +207,6 @@ $('#customerTableBody').on("click" ,'tr', function (event) {
     csindex = $(this).index();
 
     console.log(csindex)
-    /*let newid=$(this).find(".id").index();
-    console.log(newid);*/
-
 
     $("#id").val(customerary[index].cid);
     $("#name").val(customerary[index].cname);

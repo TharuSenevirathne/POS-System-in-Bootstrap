@@ -30,7 +30,7 @@ const clearOrderForm = () => {
 
 const loadCustomerselect = () => {
     $("#customerSelect").empty();
-    $("#customerSelect").append('<option value="">Select Customer</option>'); // Add default option
+    $("#customerSelect").append('<option value="">Select Customer</option>');
 
     customerary.map((item) => {
         let data = `<option>
@@ -55,7 +55,7 @@ $("#customerSelect").on("change", function (event) {
     event.preventDefault();
     let index = $(this).prop('selectedIndex');
     if (index > 0) {
-        $("#customerName").val(customerary[index - 1].cname);  // Ensure correct index
+        $("#customerName").val(customerary[index - 1].cname);
     }
 });
 
@@ -94,11 +94,6 @@ $("#addcart").on("click", function (event) {
             // Update item quantity
             updateItem(iid, quantity);
 
-            /*
-            // Uncomment this if you are updating qtyOnHand dynamically
-            $("#qtyOnHand").val(itemary[itemindex - 1].qty);  // Set updated qtyOnHand value
-            */
-
             console.log(cartdata);
             cart.push(cartdata);
 
@@ -107,10 +102,7 @@ $("#addcart").on("click", function (event) {
             $("#orderTotal").empty();
             $("#orderTotal").append("Total : " + grandtotal.toFixed(2) + "/="); // Keep 2 decimal places
 
-            // Reload the order table with new data
             loadOrderTable();
-
-            // Clear the order form after adding item to the cart
             clearOrderForm();
         }
     } else {
