@@ -76,7 +76,7 @@ $("#customersave").on("click", function (event) {
         Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your work has been saved",
+            title: "Customer Saved!",
             showConfirmButton: false,
             timer: 1500
         });
@@ -151,7 +151,7 @@ $("#customerupdate").on("click", function (event) {
 
                 loadCustomerTable();
                 clearcustomer();
-                Swal.fire("Saved!", "", "success");
+                Swal.fire("Customer Updated!", "", "success");
             } else if (result.isDenied) {
                 Swal.fire("Changes are not saved", "", "info");
             }
@@ -192,7 +192,7 @@ $("#customerdelete").on("click", function (event) {
             loadCustomerTable();
             clearcustomer();
             Swal.fire({
-                title: "Deleted!",
+                title: "Customer Deleted!",
                 text: "Your file has been deleted.",
                 icon: "success"
             });

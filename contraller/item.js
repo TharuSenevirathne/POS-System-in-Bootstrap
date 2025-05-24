@@ -54,7 +54,7 @@ $("#itemsave").on('click', function (event) {
         itemary.push(itemModel);
         loadItemTable();
         clear();
-        Swal.fire("Item saved successfully", "", "success");
+        Swal.fire("Item saved successfully!", "", "success");
     }
 });
 
@@ -97,7 +97,7 @@ $("#itemdelete").on('click', function (event) {
             itemary.splice(itemindex, 1);
             loadItemTable();
             clear();
-            Swal.fire("Deleted!", "Item has been deleted.", "success");
+            Swal.fire("Deleted!", "Item has been deleted!.", "success");
         }
     });
 });
@@ -135,7 +135,7 @@ $("#itemupdate").on('click', function (event) {
 
                 loadItemTable();
                 clear();
-                Swal.fire("Saved!", "", "success");
+                Swal.fire("Item Updated!", "", "success");
             } else if (result.isDenied) {
                 Swal.fire("Changes are not saved", "", "info");
             }
